@@ -1,0 +1,455 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.app{max-width:420px;margin:0 auto;padding:0 0 2rem;font-family:var(--font-sans)}
+
+.topbar{padding:1.25rem 1.25rem 0;display:flex;align-items:center;justify-content:space-between}
+.topbar-title{font-size:16px;font-weight:500;color:var(--color-text-primary)}
+.topbar-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.gear-btn{background:none;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);font-size:16px}
+.gear-btn:hover{background:var(--color-background-secondary)}
+
+.nav{display:flex;margin:1.25rem 1.25rem 0;gap:4px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:3px}
+.nav-btn{flex:1;padding:7px 0;font-size:13px;font-weight:500;border:none;border-radius:6px;background:transparent;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.nav-btn.on{background:var(--color-background-primary);color:var(--color-text-primary);border:0.5px solid var(--color-border-tertiary)}
+
+.section{padding:1.25rem;display:none}
+.section.on{display:block}
+
+.field{margin-bottom:1.125rem}
+.field-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.field select,.field input,.field textarea{width:100%;font-size:15px}
+.field textarea{height:68px;resize:none;padding:9px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-family:var(--font-sans);line-height:1.5}
+.field textarea:focus{outline:none;border-color:var(--color-border-primary)}
+
+.nom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.nom-chip{padding:11px 4px;font-size:13px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;text-align:center;transition:none}
+.nom-chip:hover{background:var(--color-background-secondary)}
+.nom-chip.on{background:#E6F1FB;border-color:#378ADD;color:#0C447C}
+
+.cta{width:100%;padding:13px;font-size:15px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;margin-top:4px}
+.cta:hover{background:var(--color-background-secondary)}
+.cta:disabled{opacity:.45;cursor:not-allowed}
+.cta-primary{background:#185FA5;border-color:#185FA5;color:#E6F1FB}
+.cta-primary:hover{background:#0C447C;border-color:#0C447C}
+.cta-primary:disabled{opacity:.45}
+
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.25rem 0}
+
+.qris-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:1rem}
+.qris-header{background:#D42B2B;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.qris-brand{font-size:18px;font-weight:500;color:#fff;letter-spacing:.5px}
+.qris-sub{font-size:10px;color:#ffcece;margin-top:1px}
+.qris-gpn{width:28px;height:28px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#D42B2B}
+
+.qris-body{padding:16px}
+.qris-merchant{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.qris-nmid{font-size:12px;color:var(--color-text-secondary);font-family:var(--font-mono);margin-bottom:14px}
+.qris-amount-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
+.qris-amount{font-size:26px;font-weight:500;color:var(--color-text-primary);margin-bottom:14px}
+
+.qr-wrap{background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.qr-wrap canvas{display:block}
+
+.qris-footer{background:var(--color-background-secondary);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.qris-footer-text{font-size:11px;color:var(--color-text-secondary)}
+.badge-qris{font-size:10px;font-weight:500;background:#FAEEDA;color:#633806;padding:3px 8px;border-radius:4px}
+
+.steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem}
+.step{display:flex;align-items:center;gap:6px;font-size:13px}
+.step-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.step-dot.done{background:#EAF3DE;color:#3B6D11;border:0.5px solid #97C459}
+.step-dot.active{background:#185FA5;color:#E6F1FB}
+.step-dot.idle{background:var(--color-background-secondary);color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary)}
+.step-label{color:var(--color-text-secondary)}
+.step-label.active{color:var(--color-text-primary);font-weight:500}
+.step-sep{flex:1;height:0.5px;background:var(--color-border-tertiary);margin:0 6px}
+
+.alert{border-radius:var(--border-radius-md);padding:12px 14px;font-size:14px;margin-top:1rem}
+.alert-success{background:#EAF3DE;border:0.5px solid #97C459;color:#27500A}
+.alert-warn{background:#FAEEDA;border:0.5px solid #EF9F27;color:#633806}
+.alert-err{background:#FCEBEB;border:0.5px solid #F09595;color:#791F1F}
+.alert-info{background:#E6F1FB;border:0.5px solid #85B7EB;color:#0C447C}
+
+.pending-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:.75rem}
+.pending-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.pending-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.pending-amount{font-size:15px;font-weight:500;color:#185FA5}
+.pending-meta{font-size:12px;color:var(--color-text-secondary)}
+.pending-note{font-size:12px;color:var(--color-text-secondary);margin-top:4px;font-style:italic}
+.pending-actions{display:flex;gap:8px;margin-top:10px}
+.btn-confirm{flex:1;padding:8px;font-size:13px;font-weight:500;background:#EAF3DE;border:0.5px solid #97C459;color:#27500A;border-radius:var(--border-radius-md);cursor:pointer}
+.btn-confirm:hover{background:#C0DD97}
+.btn-reject{flex:1;padding:8px;font-size:13px;font-weight:500;background:#FCEBEB;border:0.5px solid #F09595;color:#791F1F;border-radius:var(--border-radius-md);cursor:pointer}
+.btn-reject:hover{background:#F7C1C1}
+
+.riwayat-item{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.riwayat-item:last-child{border-bottom:none}
+.ri-left .ri-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.ri-left .ri-time{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.ri-left .ri-note{font-size:12px;color:var(--color-text-tertiary);margin-top:1px}
+.ri-right{text-align:right}
+.ri-amount{font-size:14px;font-weight:500;color:#3B6D11}
+.ri-status{font-size:11px;margin-top:3px;padding:2px 7px;border-radius:4px;display:inline-block}
+.ri-status.ok{background:#EAF3DE;color:#3B6D11}
+.ri-status.pending{background:#FAEEDA;color:#633806}
+.ri-status.rejected{background:#FCEBEB;color:#791F1F}
+
+.summary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.875rem 1rem}
+.metric .m-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.metric .m-val{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+
+.rank-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.rank-item:last-child{border-bottom:none}
+.rank-no{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.rank-no.gold{background:#FAEEDA;color:#633806}
+.rank-nama{flex:1;font-size:14px;color:var(--color-text-primary)}
+.rank-bar-wrap{flex:2}
+.rank-bar-bg{background:var(--color-background-secondary);height:4px;border-radius:2px;overflow:hidden}
+.rank-bar-fill{height:100%;background:#378ADD;border-radius:2px}
+.rank-total{font-size:13px;font-weight:500;color:var(--color-text-primary);white-space:nowrap;min-width:80px;text-align:right}
+
+.cfg-overlay{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin:1.25rem}
+.cfg-overlay p{font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6}
+
+.empty{text-align:center;padding:2.5rem 0;color:var(--color-text-secondary);font-size:14px}
+.loading-txt{text-align:center;padding:1.5rem 0;color:var(--color-text-secondary);font-size:14px}
+
+.filter-row{display:flex;gap:8px;margin-bottom:1rem;align-items:center}
+.filter-row select{flex:1;font-size:14px}
+.filter-row .refresh-btn{background:none;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);font-size:16px;flex-shrink:0}
+.filter-row .refresh-btn:hover{background:var(--color-background-secondary)}
+</style>
+
+<h2 class="sr-only">Aplikasi tabungan dengan QRIS — nabung, konfirmasi admin, riwayat, dan ranking</h2>
+
+<div class="app" id="app">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title"><i class="ti ti-piggy-bank" aria-hidden="true"></i> Aplikasi Nabung</div>
+      <div class="topbar-sub">Toko PlayStation · QRIS</div>
+    </div>
+    <button class="gear-btn" onclick="toggleCfg()" aria-label="Pengaturan"><i class="ti ti-settings" aria-hidden="true"></i></button>
+  </div>
+
+  <div id="cfgBox" class="cfg-overlay" style="display:none">
+    <p><i class="ti ti-link" aria-hidden="true"></i> Tempel URL Google Apps Script kamu:</p>
+    <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec" style="width:100%;font-size:13px;margin-bottom:8px" />
+    <button class="cta cta-primary" onclick="saveConfig()">Hubungkan</button>
+  </div>
+
+  <div class="nav" id="mainNav">
+    <button class="nav-btn on" onclick="goTab('nabung')"><i class="ti ti-plus" aria-hidden="true"></i> Nabung</button>
+    <button class="nav-btn" onclick="goTab('admin')"><i class="ti ti-shield-check" aria-hidden="true"></i> Admin</button>
+    <button class="nav-btn" onclick="goTab('riwayat')"><i class="ti ti-list" aria-hidden="true"></i> Riwayat</button>
+    <button class="nav-btn" onclick="goTab('ranking')"><i class="ti ti-trophy" aria-hidden="true"></i> Ranking</button>
+  </div>
+
+  <div class="section on" id="sec-nabung">
+    <div class="steps" id="stepsEl">
+      <div class="step"><div class="step-dot active" id="sd1">1</div><span class="step-label active" id="sl1">Isi data</span></div>
+      <div class="step-sep"></div>
+      <div class="step"><div class="step-dot idle" id="sd2">2</div><span class="step-label" id="sl2">Scan QRIS</span></div>
+      <div class="step-sep"></div>
+      <div class="step"><div class="step-dot idle" id="sd3">3</div><span class="step-label" id="sl3">Konfirmasi</span></div>
+    </div>
+
+    <div id="step1">
+      <div class="field">
+        <div class="field-label">Nama penabung</div>
+        <select id="selNama"><option value="">— Pilih nama —</option></select>
+      </div>
+      <div class="field">
+        <div class="field-label">Nominal tabungan</div>
+        <div class="nom-grid">
+          <div class="nom-chip" onclick="pickNom(2000,this)">Rp2.000</div>
+          <div class="nom-chip" onclick="pickNom(5000,this)">Rp5.000</div>
+          <div class="nom-chip" onclick="pickNom(10000,this)">Rp10.000</div>
+          <div class="nom-chip" onclick="pickNom(20000,this)">Rp20.000</div>
+          <div class="nom-chip" onclick="pickNom(50000,this)">Rp50.000</div>
+          <div class="nom-chip" onclick="pickNom(100000,this)">Rp100.000</div>
+        </div>
+        <input type="number" id="inpJumlah" placeholder="Atau ketik nominal lain..." min="1000" oninput="onManualInput()" />
+      </div>
+      <div class="field">
+        <div class="field-label">Catatan (opsional)</div>
+        <textarea id="inpCatatan" placeholder="Contoh: nabung rutin, bonus, dll..."></textarea>
+      </div>
+      <button class="cta cta-primary" id="btnNext1" onclick="goStep2()">Lanjut ke QRIS <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <div id="msg1"></div>
+    </div>
+
+    <div id="step2" style="display:none">
+      <div class="qris-card" id="qrisCard">
+        <div class="qris-header">
+          <div>
+            <div class="qris-brand">QRIS</div>
+            <div class="qris-sub">QR Code Standar Pembayaran Nasional</div>
+          </div>
+          <div class="qris-gpn">GPN</div>
+        </div>
+        <div class="qris-body">
+          <div class="qris-merchant">Toko PlayStation kom...</div>
+          <div class="qris-nmid">NMID : ID1025403945138 · A01</div>
+          <div class="qris-amount-label">Jumlah yang harus dibayar</div>
+          <div class="qris-amount" id="qrisAmount">Rp10.000</div>
+          <div class="qr-wrap"><canvas id="qrCanvas" width="180" height="180"></canvas></div>
+          <div style="text-align:center;font-size:13px;color:var(--color-text-secondary);margin-bottom:8px">Scan QR di atas dengan aplikasi e-wallet kamu</div>
+        </div>
+        <div class="qris-footer">
+          <div class="qris-footer-text">Satu QRIS untuk semua</div>
+          <div class="badge-qris">aspi-qris.id</div>
+        </div>
+      </div>
+      <div class="alert alert-info"><i class="ti ti-info-circle" aria-hidden="true"></i> Pastikan nominal transfer sesuai: <strong id="qrisAmountInline">Rp10.000</strong>. Setelah transfer, klik tombol di bawah.</div>
+      <button class="cta cta-primary" style="margin-top:1rem" onclick="goStep3()"><i class="ti ti-check" aria-hidden="true"></i> Sudah Transfer, Konfirmasi</button>
+      <button class="cta" style="margin-top:8px" onclick="backStep1()"><i class="ti ti-arrow-left" aria-hidden="true"></i> Kembali</button>
+      <div id="msg2"></div>
+    </div>
+
+    <div id="step3" style="display:none">
+      <div style="text-align:center;padding:1.5rem 0">
+        <div style="width:56px;height:56px;border-radius:50%;background:#EAF3DE;border:0.5px solid #97C459;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;color:#3B6D11"><i class="ti ti-clock" aria-hidden="true"></i></div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">Menunggu konfirmasi admin</div>
+        <div style="font-size:14px;color:var(--color-text-secondary);line-height:1.6">Transaksi kamu sudah masuk dan menunggu diverifikasi admin. Akan dikonfirmasi sesegera mungkin.</div>
+      </div>
+      <div class="pending-card" id="pendingSummary"></div>
+      <button class="cta cta-primary" style="margin-top:.5rem" onclick="resetForm()"><i class="ti ti-plus" aria-hidden="true"></i> Nabung lagi</button>
+    </div>
+  </div>
+
+  <div class="section" id="sec-admin">
+    <div class="filter-row">
+      <div style="flex:1;font-size:14px;font-weight:500;color:var(--color-text-primary)">Konfirmasi transaksi</div>
+      <button class="refresh-btn" onclick="loadAdmin()" aria-label="Refresh"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+    </div>
+    <div id="adminList"><div class="loading-txt">Memuat...</div></div>
+  </div>
+
+  <div class="section" id="sec-riwayat">
+    <div class="filter-row">
+      <select id="filterNama" onchange="loadRiwayat()"><option value="">Semua anggota</option></select>
+      <button class="refresh-btn" onclick="loadRiwayat()" aria-label="Refresh"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+    </div>
+    <div class="summary-row">
+      <div class="metric"><div class="m-label">Total masuk</div><div class="m-val" id="totAll">—</div></div>
+      <div class="metric"><div class="m-label">Transaksi</div><div class="m-val" id="trxCount">—</div></div>
+    </div>
+    <div id="riwayatList"><div class="empty">Pilih filter atau muat semua</div></div>
+  </div>
+
+  <div class="section" id="sec-ranking">
+    <div class="summary-row">
+      <div class="metric"><div class="m-label">Total anggota</div><div class="m-val" id="rankMember">—</div></div>
+      <div class="metric"><div class="m-label">Total terkumpul</div><div class="m-val" id="rankTotal">—</div></div>
+    </div>
+    <div id="rankList"><div class="loading-txt">Memuat...</div></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+let SCRIPT_URL = '';
+let NAMES = [];
+let NOMINAL = 0;
+let NAMA_SEL = '';
+let qrInst = null;
+
+function rp(n){return 'Rp'+Number(n).toLocaleString('id-ID')}
+function fmt(dt,wt){return dt+(wt?' · '+wt:'')}
+
+function toggleCfg(){
+  const b=document.getElementById('cfgBox');
+  b.style.display=b.style.display==='none'?'block':'none';
+}
+function saveConfig(){
+  const u=document.getElementById('scriptUrl').value.trim();
+  if(!u.includes('script.google.com')){alert('URL tidak valid.');return;}
+  SCRIPT_URL=u;
+  try{localStorage.setItem('ns_url',u);}catch(e){}
+  document.getElementById('cfgBox').style.display='none';
+  loadNames();
+}
+function goTab(t){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('on'));
+  document.getElementById('sec-'+t).classList.add('on');
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+    b.classList.toggle('on',['nabung','admin','riwayat','ranking'][i]===t);
+  });
+  if(t==='admin')loadAdmin();
+  if(t==='riwayat')loadRiwayat();
+  if(t==='ranking')loadRanking();
+}
+
+async function api(params){
+  const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(params)});
+  return r.json();
+}
+
+async function loadNames(){
+  if(!SCRIPT_URL)return;
+  try{
+    const d=await api({action:'getNames'});
+    NAMES=d.names||[];
+    ['selNama','filterNama'].forEach(id=>{
+      const s=document.getElementById(id);
+      const first=s.options[0].cloneNode(true);
+      s.innerHTML='';s.appendChild(first);
+      NAMES.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;s.appendChild(o);});
+    });
+  }catch(e){console.error(e);}
+}
+
+function pickNom(v,el){
+  NOMINAL=v;
+  document.querySelectorAll('.nom-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('inpJumlah').value=v;
+}
+function onManualInput(){
+  NOMINAL=parseInt(document.getElementById('inpJumlah').value)||0;
+  document.querySelectorAll('.nom-chip').forEach(c=>c.classList.remove('on'));
+}
+
+function setStep(n){
+  [1,2,3].forEach(i=>{
+    const dot=document.getElementById('sd'+i),lbl=document.getElementById('sl'+i);
+    if(i<n){dot.className='step-dot done';dot.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===n){dot.className='step-dot active';dot.textContent=i;lbl.className='step-label active';}
+    else{dot.className='step-dot idle';dot.textContent=i;lbl.className='step-label';}
+  });
+  document.getElementById('step1').style.display=n===1?'block':'none';
+  document.getElementById('step2').style.display=n===2?'block':'none';
+  document.getElementById('step3').style.display=n===3?'block':'none';
+}
+
+function goStep2(){
+  NAMA_SEL=document.getElementById('selNama').value;
+  NOMINAL=parseInt(document.getElementById('inpJumlah').value)||0;
+  const msg=document.getElementById('msg1');
+  if(!NAMA_SEL){msg.innerHTML='<div class="alert alert-err">Pilih nama penabung dulu.</div>';return;}
+  if(!NOMINAL||NOMINAL<1000){msg.innerHTML='<div class="alert alert-err">Nominal minimal Rp1.000.</div>';return;}
+  msg.innerHTML='';
+  document.getElementById('qrisAmount').textContent=rp(NOMINAL);
+  document.getElementById('qrisAmountInline').textContent=rp(NOMINAL);
+  const wrap=document.getElementById('qrCanvas').parentElement;
+  wrap.innerHTML='<div id="qrTarget"></div>';
+  try{
+    new QRCode(document.getElementById('qrTarget'),{
+      text:'00020101021226610016ID.CO.QRIS.WWW01189360091793600915502015802ID5925Toko PlayStation kom6013Jakarta Pusat61051234062070703A0163045F4A',
+      width:180,height:180,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M
+    });
+  }catch(e){wrap.innerHTML='<div style="width:180px;height:180px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--color-text-secondary);">QR siap</div>';}
+  setStep(2);
+}
+function backStep1(){setStep(1);}
+
+async function goStep3(){
+  const catatan=document.getElementById('inpCatatan').value;
+  const msg=document.getElementById('msg2');
+  msg.innerHTML='<div class="loading-txt">Menyimpan...</div>';
+  try{
+    const res=await api({action:'saveTabungan',nama:NAMA_SEL,jumlah:NOMINAL,catatan,status:'pending'});
+    if(res.success){
+      document.getElementById('pendingSummary').innerHTML=`
+        <div class="pending-top"><div class="pending-name">${NAMA_SEL}</div><div class="pending-amount">${rp(NOMINAL)}</div></div>
+        <div class="pending-meta">${res.tanggal} · ${res.waktu} · ID: ${res.id}</div>
+        ${catatan?`<div class="pending-note">"${catatan}"</div>`:''}
+        <div class="alert alert-warn" style="margin-top:10px"><i class="ti ti-clock" aria-hidden="true"></i> Menunggu konfirmasi admin</div>`;
+      msg.innerHTML='';
+      setStep(3);
+    }else{msg.innerHTML=`<div class="alert alert-err">${res.error||'Gagal menyimpan.'}</div>`;}
+  }catch(e){msg.innerHTML='<div class="alert alert-err">Gagal terhubung. Cek koneksi atau URL.</div>';}
+}
+
+function resetForm(){
+  document.getElementById('selNama').value='';
+  document.getElementById('inpJumlah').value='';
+  document.getElementById('inpCatatan').value='';
+  document.querySelectorAll('.nom-chip').forEach(c=>c.classList.remove('on'));
+  NOMINAL=0;NAMA_SEL='';
+  setStep(1);
+}
+
+async function loadAdmin(){
+  const el=document.getElementById('adminList');
+  el.innerHTML='<div class="loading-txt">Memuat...</div>';
+  try{
+    const d=await api({action:'getPending'});
+    if(!d.items||d.items.length===0){el.innerHTML='<div class="empty"><i class="ti ti-circle-check" style="font-size:20px;display:block;margin-bottom:6px"></i>Tidak ada transaksi pending</div>';return;}
+    el.innerHTML=d.items.map(item=>`
+      <div class="pending-card" id="pc-${item.id}">
+        <div class="pending-top"><div class="pending-name">${item.nama}</div><div class="pending-amount">${rp(item.jumlah)}</div></div>
+        <div class="pending-meta">${fmt(item.tanggal,item.waktu)}</div>
+        ${item.catatan?`<div class="pending-note">"${item.catatan}"</div>`:''}
+        <div class="pending-actions">
+          <button class="btn-confirm" onclick="konfirmasi('${item.id}','confirmed')"><i class="ti ti-check" aria-hidden="true"></i> Konfirmasi</button>
+          <button class="btn-reject" onclick="konfirmasi('${item.id}','rejected')"><i class="ti ti-x" aria-hidden="true"></i> Tolak</button>
+        </div>
+      </div>`).join('');
+  }catch(e){el.innerHTML='<div class="alert alert-err">Gagal memuat data.</div>';}
+}
+
+async function konfirmasi(id,status){
+  const card=document.getElementById('pc-'+id);
+  if(card)card.style.opacity='0.5';
+  try{
+    await api({action:'updateStatus',id,status});
+    loadAdmin();
+  }catch(e){if(card)card.style.opacity='1';}
+}
+
+async function loadRiwayat(){
+  const nama=document.getElementById('filterNama').value;
+  const el=document.getElementById('riwayatList');
+  el.innerHTML='<div class="loading-txt">Memuat...</div>';
+  try{
+    const d=await api({action:'getRiwayat',nama});
+    const confirmed=(d.riwayat||[]).filter(r=>r.status==='confirmed');
+    document.getElementById('totAll').textContent=rp((d.riwayat||[]).reduce((s,r)=>r.status==='confirmed'?s+Number(r.jumlah):s,0));
+    document.getElementById('trxCount').textContent=confirmed.length+'x';
+    if(!d.riwayat||d.riwayat.length===0){el.innerHTML='<div class="empty">Belum ada transaksi.</div>';return;}
+    el.innerHTML=d.riwayat.map(r=>`
+      <div class="riwayat-item">
+        <div class="ri-left">
+          <div class="ri-name">${r.nama}</div>
+          <div class="ri-time">${fmt(r.tanggal,r.waktu)}</div>
+          ${r.catatan?`<div class="ri-note">"${r.catatan}"</div>`:''}
+        </div>
+        <div class="ri-right">
+          <div class="ri-amount">+${rp(r.jumlah)}</div>
+          <span class="ri-status ${r.status==='confirmed'?'ok':r.status==='rejected'?'rejected':'pending'}">${r.status==='confirmed'?'Terverifikasi':r.status==='rejected'?'Ditolak':'Pending'}</span>
+        </div>
+      </div>`).join('');
+  }catch(e){el.innerHTML='<div class="alert alert-err">Gagal memuat.</div>';}
+}
+
+async function loadRanking(){
+  const el=document.getElementById('rankList');
+  el.innerHTML='<div class="loading-txt">Memuat...</div>';
+  try{
+    const d=await api({action:'getSummary'});
+    if(!d.summary||d.summary.length===0){el.innerHTML='<div class="empty">Belum ada data.</div>';return;}
+    const grand=d.summary.reduce((s,r)=>s+r.total,0);
+    document.getElementById('rankMember').textContent=d.summary.length;
+    document.getElementById('rankTotal').textContent=rp(grand);
+    const maxT=Math.max(...d.summary.map(s=>s.total));
+    el.innerHTML=d.summary.map((s,i)=>`
+      <div class="rank-item">
+        <div class="rank-no ${i===0?'gold':''}">${i+1}</div>
+        <div class="rank-nama">${s.nama}</div>
+        <div class="rank-bar-wrap"><div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${Math.round(s.total/maxT*100)}%"></div></div></div>
+        <div class="rank-total">${rp(s.total)}</div>
+      </div>`).join('');
+  }catch(e){el.innerHTML='<div class="alert alert-err">Gagal memuat.</div>';}
+}
+
+try{
+  const saved=localStorage.getItem('ns_url');
+  if(saved){SCRIPT_URL=saved;document.getElementById('scriptUrl').value=saved;loadNames();}
+  else{document.getElementById('cfgBox').style.display='block';}
+}catch(e){document.getElementById('cfgBox').style.display='block';}
+
+setStep(1);
+</script>
