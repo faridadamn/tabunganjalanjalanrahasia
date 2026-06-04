@@ -17,8 +17,8 @@
   --gp-dark:#0090B0;
   --gp-light:#E6F8FC;
   --gp-bg:#F0F5F9;
-  --font-sans:'Plus Jakarta Sans',sans-serif;
-  --font-sans:'Syne',sans-serif;
+  --font-display:'Plus Jakarta Sans',sans-serif;
+  --font-display:'Syne',sans-serif;
   --font-mono:'SF Mono','Courier New',monospace;
   --radius-card:18px;
   --shadow-card:0 2px 12px rgba(0,0,0,.07);
@@ -28,7 +28,7 @@
 html,body{
   height:100%;
   background:#CBD8E3;
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   -webkit-font-smoothing:antialiased;
 }
 
@@ -109,7 +109,7 @@ html,body{
   margin-bottom:3px;
 }
 .home-name{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:20px;
   font-weight:800;
   color:#fff;
@@ -128,7 +128,7 @@ html,body{
   margin-bottom:5px;
 }
 .home-balance{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:32px;
   font-weight:800;
   color:#fff;
@@ -224,7 +224,7 @@ html,body{
 }
 .back-btn:active{background:rgba(255,255,255,.35)}
 .page-title{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:17px;
   font-weight:800;
   color:#fff;
@@ -255,7 +255,7 @@ html,body{
   width:100%;border:none;outline:none;
   font-size:15px;font-weight:600;
   color:#1a1a1a;background:transparent;
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
 }
 .form-card select{cursor:pointer}
 .form-card textarea{resize:none;height:64px;line-height:1.6;font-weight:500}
@@ -290,7 +290,7 @@ html,body{
   flex:1;border:none;outline:none;
   background:transparent;
   font-size:15px;font-weight:700;color:#1a1a1a;
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
 }
 
 /* ── CTA BAR ── */
@@ -298,7 +298,7 @@ html,body{
 .cta-main{
   width:100%;padding:15px;
   font-size:15px;font-weight:800;
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   border-radius:16px;border:none;
   background:linear-gradient(135deg,var(--gp),var(--gp-dark));
   color:#fff;cursor:pointer;
@@ -311,7 +311,7 @@ html,body{
 .cta-outline{
   width:100%;padding:14px;
   font-size:15px;font-weight:700;
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   border-radius:16px;
   border:2px solid var(--gp);
   background:transparent;color:var(--gp);
@@ -331,7 +331,7 @@ html,body{
   margin-bottom:14px;
 }
 .qris-brand{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:18px;font-weight:800;
   color:#fff;letter-spacing:.5px;
 }
@@ -349,7 +349,7 @@ html,body{
 }
 .amount-pill .amt-label{font-size:11px;font-weight:700;color:var(--gp-dark);letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px}
 .amount-pill .amt-val{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:24px;font-weight:800;
   color:var(--gp-dark);letter-spacing:-.5px;
 }
@@ -381,7 +381,7 @@ html,body{
 .pend-top{display:flex;justify-content:space-between;margin-bottom:5px}
 .pend-name{font-size:14px;font-weight:700;color:#1a1a1a}
 .pend-amount{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:15px;font-weight:800;
   color:var(--gp-dark);
 }
@@ -391,14 +391,14 @@ html,body{
 .btn-ok{
   padding:10px;font-size:13px;font-weight:700;
   background:#E6FAF0;border:1.5px solid #9FE1CB;color:#0F7A34;
-  border-radius:12px;cursor:pointer;font-family:var(--font-sans);
+  border-radius:12px;cursor:pointer;font-family:var(--font-display);
   transition:opacity .15s;
 }
 .btn-ok:active{opacity:.7}
 .btn-no{
   padding:10px;font-size:13px;font-weight:700;
   background:#FEE6E6;border:1.5px solid #F0BBBB;color:#C0392B;
-  border-radius:12px;cursor:pointer;font-family:var(--font-sans);
+  border-radius:12px;cursor:pointer;font-family:var(--font-display);
   transition:opacity .15s;
 }
 .btn-no:active{opacity:.7}
@@ -420,7 +420,7 @@ html,body{
 .rank-bar-bg{height:4px;background:#EEF2F6;border-radius:2px;margin-top:4px;overflow:hidden}
 .rank-bar-fill{height:100%;background:linear-gradient(90deg,var(--gp),var(--gp-dark));border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 .rank-total{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:13px;font-weight:800;
   color:#1a1a1a;min-width:80px;text-align:right;
 }
@@ -457,7 +457,7 @@ html,body{
 .sum-card{background:#fff;border-radius:16px;padding:14px;box-shadow:var(--shadow-card)}
 .sum-label{font-size:10px;font-weight:800;color:#9BADC0;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
 .sum-val{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:20px;font-weight:800;color:#1a1a1a;
 }
 
@@ -475,7 +475,7 @@ html,body{
   box-shadow:0 4px 20px rgba(29,185,84,.2);
 }
 .success-title{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-size:20px;font-weight:800;
   color:#1a1a1a;margin-bottom:8px;
   letter-spacing:-.3px;
@@ -495,7 +495,7 @@ html,body{
 .receipt-row .rr{font-weight:700;color:#1a1a1a}
 .receipt-row.total .rl{font-weight:700;color:#1a1a1a}
 .receipt-row.total .rr{
-  font-family:var(--font-sans);
+  font-family:var(--font-display);
   font-weight:800;color:var(--gp-dark);font-size:16px;
 }
 
@@ -637,7 +637,7 @@ html,body{
     </div>
     <div class="form-body" style="padding:14px 16px">
       <div style="background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow-card)">
-        <select id="filterNama" style="width:100%;border:none;outline:none;font-size:14px;font-weight:600;color:#1a1a1a;background:transparent;font-family:var(--font-sans)" onchange="loadRiwayat()">
+        <select id="filterNama" style="width:100%;border:none;outline:none;font-size:14px;font-weight:600;color:#1a1a1a;background:transparent;font-family:var(--font-display)" onchange="loadRiwayat()">
           <option value="">Semua anggota</option>
         </select>
       </div>
